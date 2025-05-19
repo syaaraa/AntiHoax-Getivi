@@ -1,0 +1,440 @@
+`antihoax-school.html`
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Web Anti Hoax Sekolah</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+  :root {
+    --blue-dark: #0d47a1;
+    --blue-medium: #1976d2;
+    --blue-light: #63a4ff;
+    --bg-color: #e3f2fd;
+    --text-color: #0b3d91;
+    --button-hover: #145ea8;
+    --border-radius: 8px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem 4rem 1rem;
+  }
+
+  .container {
+    max-width: 600px;
+    width: 100%;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 15px rgb(25 118 210 / 0.3);
+    padding: 2rem 2.5rem 3rem 2.5rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 1.7rem;
+  }
+
+  header h1 {
+    font-weight: 600;
+    font-size: 2.2rem;
+    color: var(--blue-dark);
+    text-shadow: 1px 1px 4px rgb(0 0 0 / 0.1);
+  }
+
+  .section {
+    margin-bottom: 2.5rem;
+  }
+
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 1.05rem;
+  }
+
+  input[type="text"], textarea, select {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    font-size: 1rem;
+    border: 2px solid var(--blue-medium);
+    border-radius: var(--border-radius);
+    outline-offset: 2px;
+    outline-color: var(--blue-light);
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+  }
+
+  input[type="text"]:focus, textarea:focus, select:focus {
+    border-color: var(--blue-dark);
+    box-shadow: 0 0 8px var(--blue-light);
+  }
+
+  button {
+    background-color: var(--blue-medium);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgb(25 118 210 / 0.3);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  button:hover {
+    background-color: var(--button-hover);
+  }
+
+  .search-input-group {
+    display: flex;
+    gap: 0.7rem;
+  }
+
+  .search-input-group input {
+    flex-grow: 1;
+  }
+
+  .result {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    user-select: none;
+    text-align: center;
+    box-shadow: 0 0 7px rgb(25 118 210 / 0.15);
+  }
+
+  .result.hoax {
+    color: #b71c1c;
+    background-color: #ffebee;
+    border: 2px solid #f44336;
+  }
+
+  .result.fakta {
+    color: #1b5e20;
+    background-color: #e8f5e9;
+    border: 2px solid #4caf50;
+  }
+
+  .result.notfound {
+    color: #0d47a1;
+    background-color: #bbdefb;
+    border: 2px solid #1976d2;
+  }
+
+  form > div {
+    margin-bottom: 1rem;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+
+  .info-list {
+    list-style-type: none;
+    padding-left: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    border-top: 1px solid var(--blue-light);
+    margin-top: 0.5rem;
+  }
+
+  .info-list li {
+    padding: 0.3rem 0.4rem;
+    border-bottom: 1px solid var(--blue-light);
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .info-list li span {
+    font-weight: 700;
+  }
+
+  .delete-button {
+    background-color: #e53935;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+    margin-left: 1rem;
+  }
+
+  .delete-button:hover {
+    background-color: #ab000d;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: var(--blue-dark);
+    opacity: 0.6;
+  }
+
+  @media (max-width: 400px) {
+    .container {
+      padding: 1.5rem 1.5rem 2rem 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Web Anti Hoax Sekolah">
+    <header>
+      <h1>Web Anti Hoax Getivi</h1>
+    </header>
+
+    <section class="section" aria-labelledby="search-heading">
+      <h2 id="search-heading" style="font-weight:600; color: var(--blue-dark); margin-bottom: 0.7rem;">Cari Tahu Hoax</h2>
+      <div class="search-input-group">
+        <input type="text" id="searchInput" aria-label="Ketik informasi untuk dicek" placeholder="Cari tahu..." autocomplete="off" />
+        <button id="searchButton" aria-label="Cari tahu hoax">Cari</button>
+      </div>
+      <div id="searchResult" role="region" aria-live="polite" style="min-height: 3rem; margin-top: 1rem;"></div>
+    </section>
+
+    <section class="section" aria-labelledby="addinfo-heading">
+      <h2 id="addinfo-heading" style="font-weight:600; color: var(--blue-dark); margin-bottom: 0.7rem;">Tambahkan Informasi</h2>
+      <form id="addInfoForm" aria-describedby="addinfo-desc">
+        <div id="addinfo-desc" style="font-size:0.9rem; margin-bottom: 1rem; color: #23527c;">
+          Bantu kelompok 5 menambah informasi yuk!.
+        </div>
+        <div>
+          <label for="infoText">Informasi</label>
+          <textarea id="infoText" required placeholder="Tulis informasi di sini..." aria-required="true" maxlength="300"></textarea>
+        </div>
+        <div>
+          <label for="infoType">Jenis Informasi</label>
+          <select id="infoType" aria-required="true" required>
+            <option value="" disabled selected>Pilih jenis informasi</option>
+            <option value="fakta">Fakta</option>
+            <option value="hoax">Hoax</option>
+          </select>
+        </div>
+        <button type="submit" aria-label="Tambahkan informasi">Tambahkan</button>
+        <div id="addInfoMessage" role="alert" aria-live="assertive" style="margin-top: 0.7rem; font-weight: 600;"></div>
+      </form>
+    </section>
+
+    <section class="section" aria-labelledby="info-history-heading" style="border-top: 1px solid var(--blue-light); padding-top: 1.3rem;">
+      <h2 id="info-history-heading" style="font-weight:600; color: var(--blue-dark); margin-bottom: 0.7rem;">Informasi Tersimpan</h2>
+      <ul id="infoList" class="info-list" aria-live="polite" aria-label="Daftar informasi yang sudah ditambahkan"></ul>
+    </section>
+
+    <footer>
+      &copy; 2025 Anti Hoax Getivi 
+    </footer>
+  </div>
+
+<script>
+  // Key for local storage
+  const STORAGE_KEY = 'antiHoaxSchoolData';
+
+  // Fetch stored data or initialize
+  function getStoredData() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  // Save data to localStorage
+  function saveData(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  // Render info list in the info section with delete buttons for each item
+  function renderInfoList() {
+    const infoList = document.getElementById('infoList');
+    const data = getStoredData();
+    if (data.length === 0) {
+      infoList.innerHTML = '<li><em>Belum ada informasi yang ditambahkan.</em></li>';
+      return;
+    }
+    infoList.innerHTML = '';
+    data.forEach(({ text, type }, idx) => {
+      const li = document.createElement('li');
+      const typeLabel = type === 'fakta' ? 'Fakta' : 'Hoax';
+      const color = type === 'fakta' ? '#1b5e20' : '#b71c1c';
+      li.innerHTML = `<span><span style="color: ${color};">${typeLabel}:</span> ${escapeHtml(text)}</span> <button aria-label="Hapus informasi ${escapeHtml(text)}" class="delete-button" data-index="${idx}">Hapus</button>`;
+      infoList.appendChild(li);
+    });
+
+    // Attach event listeners for delete buttons
+    Array.from(infoList.querySelectorAll('.delete-button')).forEach(button => {
+      button.addEventListener('click', handleDeleteInfo);
+    });
+  }
+
+  // Escape HTML to prevent injection in output
+  function escapeHtml(text) {
+    return text.replace(/[&<>"']/g, function(m) {
+      return ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[m]);
+    });
+  }
+
+  // Search handler
+  function handleSearch() {
+    const input = document.getElementById('searchInput').value.trim().toLowerCase();
+    const resultDiv = document.getElementById('searchResult');
+    
+    if (input === '') {
+      resultDiv.textContent = '';
+      resultDiv.className = '';
+      return;
+    }
+    
+    const data = getStoredData();
+    // Search for entries that includes the input term
+    // Prioritize exact matches, else partial matches
+    const exactMatch = data.find(d => d.text.toLowerCase() === input);
+    if (exactMatch) {
+      showResult(exactMatch.type);
+      return;
+    }
+    // Partial matches filter
+    const partialMatches = data.filter(d => d.text.toLowerCase().includes(input));
+    if (partialMatches.length === 1) {
+      showResult(partialMatches[0].type);
+      return;
+    } else if (partialMatches.length > 1) {
+      // If multiple results, show a combined info that multiple results found
+      const typesFound = new Set(partialMatches.map(d => d.type));
+      if (typesFound.size === 1) {
+        // all same type
+        showResult(typesFound.values().next().value, `${partialMatches.length} hasil cocok ditemukan.`);
+      } else {
+        // conflicting types found
+        showResult('conflict', `${partialMatches.length} hasil cocok ditemukan dengan tipe berbeda.`);
+      }
+      return;
+    }
+
+    // Not found
+    showResult('notfound');
+  }
+
+  // Show the search result with styling and message
+  function showResult(type, extraMsg = '') {
+    const resultDiv = document.getElementById('searchResult');
+    resultDiv.className = 'result';
+
+    if (type === 'fakta') {
+      resultDiv.textContent = 'Fakta. ' + extraMsg;
+      resultDiv.classList.add('fakta');
+    } else if (type === 'hoax') {
+      resultDiv.textContent = 'Hoax! Hati-hati ya!' + extraMsg;
+      resultDiv.classList.add('hoax');
+    } else if (type === 'notfound') {
+      resultDiv.textContent = 'Ups maaf kelompok 5 gak tahu nih.';
+      resultDiv.classList.add('notfound');
+    } else if (type === 'conflict') {
+      resultDiv.textContent = 'Ditemukan informasi yang bertentangan! ' + extraMsg;
+      resultDiv.classList.add('notfound');
+    } else {
+      resultDiv.textContent = '';
+      resultDiv.className = '';
+    }
+  }
+
+  // Handle add info form submit
+  function handleAddInfo(event) {
+    event.preventDefault();
+    const infoTextInput = document.getElementById('infoText');
+    const infoTypeSelect = document.getElementById('infoType');
+    const msgDiv = document.getElementById('addInfoMessage');
+
+    const text = infoTextInput.value.trim();
+    const type = infoTypeSelect.value;
+
+    if (!text || !type) {
+      msgDiv.textContent = 'Mohon isi semua field yang diperlukan.';
+      msgDiv.style.color = '#b71c1c';
+      return;
+    }
+
+    let data = getStoredData();
+
+    // Check if this exact info already exists
+    if (data.some(d => d.text.toLowerCase() === text.toLowerCase())) {
+      msgDiv.textContent = 'Informasi ini sudah pernah ditambahkan.';
+      msgDiv.style.color = '#b71c1c';
+      return;
+    }
+
+    data.push({ text, type });
+    saveData(data);
+    renderInfoList();
+
+    msgDiv.textContent = 'Informasi berhasil ditambahkan! Terimakasih :3';
+    msgDiv.style.color = '#1b5e20';
+
+    // Reset form
+    infoTextInput.value = '';
+    infoTypeSelect.value = '';
+  }
+
+  // Handle deleting an info item by index
+  function handleDeleteInfo(event) {
+    const index = Number(event.target.getAttribute('data-index'));
+    const data = getStoredData();
+
+    if (index >= 0 && index < data.length) {
+      const confirmDelete = confirm(`Yakin nih mau dihapus?\n\n"${data[index].text}" (Tipe: ${data[index].type === 'fakta' ? 'Fakta' : 'Hoax'})`);
+      if (confirmDelete) {
+        data.splice(index, 1);
+        saveData(data);
+        renderInfoList();
+        // Clear search result if it showed the deleted info
+        const searchInputValue = document.getElementById('searchInput').value.trim().toLowerCase();
+        if (searchInputValue === data[index]?.text?.toLowerCase()) {
+          document.getElementById('searchResult').textContent = '';
+          document.getElementById('searchResult').className = '';
+        }
+      }
+    }
+  }
+
+  // Set event listeners on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('searchButton').addEventListener('click', handleSearch);
+    document.getElementById('searchInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSearch();
+      }
+    });
+    document.getElementById('addInfoForm').addEventListener('submit', handleAddInfo);
+    renderInfoList();
+  });
+</script>
+</body>
+</html>
+
+```
